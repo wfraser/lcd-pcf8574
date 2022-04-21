@@ -1,15 +1,22 @@
+#![doc = include_str!("../README.md")]
+#![deny(missing_docs)]
+
 use i2cdev::core::I2CDevice;
 use i2cdev::linux::{LinuxI2CDevice, LinuxI2CError};
 use lcd::{Delay, Hardware};
 use std::thread;
 use std::time::Duration;
 
+/// Represents an LCD display attached via PCF8574 I2C expander. Use the traits in the [`lcd`]
+/// crate to interact with it.
 pub struct Pcf8574 {
     dev: LinuxI2CDevice,
     data: u8,
 }
 
 impl Pcf8574 {
+    /// Create a new instance, using the Linux I2C interface for communication. `bus` is the number
+    /// of `/dev/i2c-<bus>` to use, and `address` is the I2C address of the device.
     pub fn new(bus: u8, address: u16) -> Result<Self, LinuxI2CError> {
         Ok(Self {
             dev: LinuxI2CDevice::new(format!("/dev/i2c-{}", bus), address)?,
@@ -17,6 +24,7 @@ impl Pcf8574 {
         })
     }
 
+    /// Set the display's backlight on or off.
     pub fn backlight(&mut self, on: bool) {
         self.set_bit(3, on);
         self.apply();
