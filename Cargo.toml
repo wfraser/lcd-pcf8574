@@ -3,8 +3,12 @@ name = "lcd-pcf8574"
 version = "0.1.1"
 authors = ["William R. Fraser <wfraser@codewise.org>"]
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "Hitachi HD44780-compatible LCD display attached to PCF8574 I2C expander"
+repository = "https://github.com/wfraser/lcd-pcf8574"
+categories = ["embedded"]
+keywords = ["lcd", "hd44780", "pcf8574"]
+readme = "README.md"
+license = "MIT/Apache-2.0"
 
 [dependencies]
 i2cdev = "0.5.0"
