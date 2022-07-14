@@ -1,6 +1,6 @@
 use std::env::args;
 use std::process::exit;
-use lcd_pcf8574::Pcf8574;
+use lcd_pcf8574::{Pcf8574, ErrorHandling};
 
 fn usage() -> ! {
     eprintln!("usage: {} <bus> [<i2c-addr>]", args().next().unwrap());
@@ -30,7 +30,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             usage();
         });
 
-    let mut display = lcd::Display::new(Pcf8574::new(bus, addr)?);
+    let mut dev = Pcf8574::new(bus, addr)?;
+    dev.on_error(ErrorHandling::Panic);
+
+    let mut display = lcd::Display::new(dev);
     display.init(lcd::FunctionLine::Line2, lcd::FunctionDots::Dots5x8);
     display.display(
         lcd::DisplayMode::DisplayOn,

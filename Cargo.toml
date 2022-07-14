@@ -1,6 +1,6 @@
 [package]
 name = "lcd-pcf8574"
-version = "0.1.2"
+version = "0.2.0"
 authors = ["William R. Fraser <wfraser@codewise.org>"]
 edition = "2021"
 description = "Hitachi HD44780-compatible LCD display attached to PCF8574 I2C expander"
